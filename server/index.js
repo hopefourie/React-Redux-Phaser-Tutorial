@@ -25,8 +25,4 @@ app.use((err, req, res, next) => {
     .send(err.message || "Oops! There's an error on our end.");
 });
 
-const port = process.env.PORT || 3000;
-
-app.listen(port, function () {
-  console.log(`listening on port ${port}`);
-});
+module.exports = app;

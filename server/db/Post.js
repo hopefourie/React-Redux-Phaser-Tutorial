@@ -14,7 +14,6 @@ const Post = db.define('post', {
     allowNull: false,
     validate: {
       notEmpty: true,
-      isEmail: true,
     },
   },
 });
