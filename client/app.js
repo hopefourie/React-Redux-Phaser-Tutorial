@@ -3,10 +3,17 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import store from './store';
 import { Provider } from 'react-redux';
+import Title from './components/Title';
+import Game from './components/Game';
 
 class App extends Component {
   render() {
-    return <div>my app component!</div>;
+    return (
+      <div>
+        <Title />
+        <Game />
+      </div>
+    );
   }
 }
 
