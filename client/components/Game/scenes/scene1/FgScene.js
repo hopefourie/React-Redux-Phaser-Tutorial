@@ -5,8 +5,8 @@ export default class FgScene extends Phaser.Scene {
   preload() {
     // Preload Sprites
     this.load.spritesheet('josh', 'assets/spriteSheets/josh.png', {
-      frameWidth: 340,
-      frameHeight: 460,
+      frameWidth: 170,
+      frameHeight: 172,
     });
     this.load.image('ground', 'assets/sprites/ground.png');
 
