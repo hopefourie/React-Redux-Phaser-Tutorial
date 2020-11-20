@@ -23,7 +23,10 @@ export default class MainScene extends Phaser.Scene {
     this.load.image('gremlin', 'assets/sprites/gremlin.png');
     this.load.image('ground', 'assets/sprites/ground.png');
     this.load.image('mainGround', 'assets/sprites/mainGround.png');
-    this.load.image('wand', 'assets/sprites/wand.png');
+    this.load.spritesheet('wand', 'assets/spritesheets/wand.png', {
+      frameWidth: 63,
+      frameHeight: 45,
+    });
     this.load.image('laserBolt', 'assets/sprites/laserBolt.png');
     this.load.audio('jump', 'assets/audio/jump.wav');
     this.load.audio('laser', 'assets/audio/laser.wav');
@@ -35,7 +38,7 @@ export default class MainScene extends Phaser.Scene {
     this.groundGroup.create(x, y, 'ground');
   }
 
-  //PLAYER ANIMATION
+  //ANIMATIONS
   createAnimations() {
     this.anims.create({
       key: 'left',
@@ -68,6 +71,11 @@ export default class MainScene extends Phaser.Scene {
       key: 'wandHand',
       frames: [{ key: 'newt', frame: 9 }],
       frameRate: 20,
+    });
+    this.anims.create({
+      key: 'shine',
+      frames: this.anims.generateFrameNumbers('wand', { start: 0, end: 1 }),
+      frameRate: 5,
     });
   }
 
