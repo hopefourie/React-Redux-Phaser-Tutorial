@@ -13,10 +13,7 @@ But this hasn't happened yet!
 */
 
 // Bring in all the scenes
-import ExampleScene from './scenes/ExampleScene';
 import MainScene from './scenes/MainScene';
-import BgScene from './scenes/scene1/BgScene';
-import FgScene from './scenes/scene1/FgScene';
 import 'phaser';
 import React from 'react';
 
@@ -43,7 +40,7 @@ export default class Game extends React.Component {
           debug: false,
         },
       },
-      scene: [ExampleScene],
+      scene: [MainScene],
     };
     new Phaser.Game(config);
   }
