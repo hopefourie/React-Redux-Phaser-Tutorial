@@ -9,7 +9,7 @@ export default class Laser extends Phaser.Physics.Arcade.Sprite {
 
     this.facingLeft = facingLeft;
     //bolt speed
-    this.speed = Phaser.Math.GetSpeed(800, 1); // (distance in pixels, time (ms))
+    this.speed = Phaser.Math.GetSpeed(400, 1); // (distance in pixels, time (ms))
 
     //lifespan
     this.lifespan = 900;

@@ -1,6 +1,6 @@
 const router = require('express').Router();
 
-router.use('/users', require('./users'));
+router.use('/players', require('./players'));
 
 router.use((req, res, next) => {
   const err = new Error('Not found.');

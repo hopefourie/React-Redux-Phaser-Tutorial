@@ -4,6 +4,7 @@ import Ground from '../entity/Ground';
 import Enemy from '../entity/Enemy';
 import Wand from '../entity/Wand';
 import Laser from '../entity/Laser';
+import store from '../../../store';
 
 export default class MainScene extends Phaser.Scene {
   constructor() {
@@ -24,6 +25,9 @@ export default class MainScene extends Phaser.Scene {
     this.load.image('mainGround', 'assets/sprites/mainGround.png');
     this.load.image('wand', 'assets/sprites/wand.png');
     this.load.image('laserBolt', 'assets/sprites/laserBolt.png');
+    this.load.audio('jump', 'assets/audio/jump.wav');
+    this.load.audio('laser', 'assets/audio/laser.wav');
+    this.load.audio('goblinBurp', 'assets/audio/goblinBurp.mp3');
   }
 
   //CREATE GROUND HELPER FUNC
@@ -111,6 +115,19 @@ export default class MainScene extends Phaser.Scene {
     this.groundGroup.create(530, 200, 'ground');
     this.groundGroup.create(160, 620, 'mainGround');
 
+    //score
+    this.scoreText = this.add.text(16, 16, 'score: 0', {
+      fontSize: '32px',
+      fill: '#000',
+    });
+
+    //sounds
+    this.jumpSound = this.sound.add('jump');
+    this.jumpSound.volume = 0.5;
+    this.laserSound = this.sound.add('laser');
+    this.goblinBurp = this.sound.add('goblinBurp');
+    this.goblinBurp.volume = 0.5;
+
     //colliders
     this.physics.add.collider(this.wand, this.groundGroup);
     this.physics.add.collider(this.player, this.groundGroup);
@@ -158,16 +175,20 @@ export default class MainScene extends Phaser.Scene {
   hit(enemy, laser) {
     laser.setActive(false);
     laser.setVisible(false);
+    enemy.disableBody(true);
+    enemy.setVisible(false);
+    this.enemy.update(this.goblinBurp);
   }
 
   update(time, delta) {
     //call player update
-    this.player.update(this.cursors);
+    this.player.update(this.cursors, this.jumpSound);
     this.wand.update(
       time,
       this.player,
       this.cursors,
-      this.fireLaser // Callback fn for creating lasers
+      this.fireLaser,
+      this.laserSound
     );
   }
 }

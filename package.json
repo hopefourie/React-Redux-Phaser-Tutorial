@@ -1,5 +1,5 @@
 {
-  "name": "boilerplate",
+  "name": "newts-quest",
   "version": "1.0.0",
   "description": "",
   "main": "./start.js",
@@ -24,6 +24,7 @@
     "webpack-cli": "^4.1.0"
   },
   "dependencies": {
+    "axios": "^0.21.0",
     "body-parser": "^1.19.0",
     "browserify": "^17.0.0",
     "express": "^4.17.1",

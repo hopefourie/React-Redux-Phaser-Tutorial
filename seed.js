@@ -1,50 +1,26 @@
 const { green, red } = require('chalk');
-const { db, User, Post } = require('./server/db');
+const { db, Player } = require('./server/db');
 
-const seedUsers = [
+const seedPlayers = [
   {
-    email: 'john@john.com',
-    userName: 'john',
+    name: 'wizkid',
+    score: 28,
   },
   {
-    email: 'sarah@sarah.com',
-    userName: 'sarah',
+    name: 'gnomegrrrl',
+    score: 94,
   },
   {
-    email: 'nicky@nicky.com',
-    userName: 'nicky',
-  },
-];
-
-const seedPosts = [
-  {
-    title: 'Chocolate Chip Cookies',
-    content: 'They are so delicious. I could eat them everyday.',
-    userId: 1,
-  },
-  {
-    title: 'Oatmeal Cookies',
-    content: 'They are so delicious. The oats add a nice texture.',
-    userId: 1,
-  },
-  {
-    title: 'Sugar Cookies',
-    content: 'They are so delicious, but sometimes to sweet for me.',
-    userId: 2,
-  },
-  {
-    title: 'Snickerdoodle Cookies',
-    content: 'They are so delicious, they taste like christmas.',
-    userId: 3,
+    name: 'goblinkween',
+    score: 47,
   },
 ];
 
 const seed = async () => {
   try {
     await db.sync({ force: true });
-    await Promise.all(seedUsers.map((user) => User.create(user)));
-    await Promise.all(seedPosts.map((post) => Post.create(post)));
-    console.log(green('Database successfully seeded 🍪'));
+    await Promise.all(seedPlayers.map((player) => Player.create(player)));
+    console.log(green('Database successfully seeded 👾'));
     db.close();
     // seed your database here!
   } catch (err) {

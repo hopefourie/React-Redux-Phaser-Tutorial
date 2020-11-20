@@ -38,9 +38,10 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     }
   }
 
-  updateJump(cursors) {
+  updateJump(cursors, jumpSound) {
     if (cursors.up.isDown && this.body.touching.down) {
       this.setVelocityY(-800);
+      jumpSound.play();
       if (cursors.right.isDown) {
         this.play('rightJump', true);
       } else if (cursors.left.isDown) {
@@ -49,8 +50,8 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     }
   }
 
-  update(cursors) {
+  update(cursors, jumpSound) {
     this.updateMovement(cursors);
-    this.updateJump(cursors);
+    this.updateJump(cursors, jumpSound);
   }
 }

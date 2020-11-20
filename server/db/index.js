@@ -1,12 +1,7 @@
 const db = require('./database');
-const Post = require('./Post');
-const User = require('./User');
-
-Post.belongsTo(User);
-User.hasMany(Post);
+const Player = require('./Player');
 
 module.exports = {
   db,
-  User,
-  Post,
+  Player,
 };
