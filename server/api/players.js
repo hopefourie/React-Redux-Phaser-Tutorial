@@ -5,7 +5,9 @@ const router = require('express').Router();
 //GET /api/players
 router.get('/', async (req, res, next) => {
   try {
-    const players = await Player.findAll();
+    const players = await Player.findAll({
+      order: [['score', 'DESC']],
+    });
     res.json(players);
   } catch (error) {
     next(error);

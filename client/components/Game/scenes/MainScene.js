@@ -4,14 +4,14 @@ import Ground from '../entity/Ground';
 import Enemy from '../entity/Enemy';
 import Wand from '../entity/Wand';
 import Laser from '../entity/Laser';
-import store from '../../../store';
-
+import store, { UPDATE_SCORE } from '../../../store';
 export default class MainScene extends Phaser.Scene {
   constructor() {
-    super('FgScene');
+    super('MainScene');
     this.collectWand = this.collectWand.bind(this);
     this.fireLaser = this.fireLaser.bind(this);
     this.hit = this.hit.bind(this);
+    this.score = 0;
   }
   preload() {
     // Preload Sprites
@@ -115,12 +115,6 @@ export default class MainScene extends Phaser.Scene {
     this.groundGroup.create(530, 200, 'ground');
     this.groundGroup.create(160, 620, 'mainGround');
 
-    //score
-    this.scoreText = this.add.text(16, 16, 'score: 0', {
-      fontSize: '32px',
-      fill: '#000',
-    });
-
     //sounds
     this.jumpSound = this.sound.add('jump');
     this.jumpSound.volume = 0.5;
@@ -178,6 +172,8 @@ export default class MainScene extends Phaser.Scene {
     enemy.disableBody(true);
     enemy.setVisible(false);
     this.enemy.update(this.goblinBurp);
+    this.score += 100;
+    store.dispatch({ type: UPDATE_SCORE, score: this.score });
   }
 
   update(time, delta) {

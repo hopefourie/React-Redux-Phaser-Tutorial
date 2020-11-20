@@ -2,16 +2,25 @@ import '../public/style.css';
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import store from './store';
-import { Provider } from 'react-redux';
+import { Provider, connect } from 'react-redux';
 import Title from './components/Title';
 import Game from './components/Game';
+import Instructions from './components/Instructions';
+import Leaderboard from './components/Leaderboard';
+import { updateScore } from './store';
 
 class App extends Component {
   render() {
     return (
       <div>
         <Title />
-        <Game />
+        <div className="content">
+          <Instructions />
+          <Leaderboard />
+        </div>
+        <div className="game-container">
+          <Game />
+        </div>
       </div>
     );
   }
