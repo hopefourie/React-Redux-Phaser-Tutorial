@@ -8,7 +8,8 @@
     "start": "node start",
     "start-dev": "webpack -w",
     "start-both": "npm start & npm run start-dev",
-    "seed": "node seed.js"
+    "seed": "node seed.js",
+    "deploy": "public/deploy"
   },
   "author": "",
   "license": "ISC",
@@ -27,6 +28,7 @@
     "axios": "^0.21.0",
     "body-parser": "^1.19.0",
     "browserify": "^17.0.0",
+    "chalk": "^4.1.0",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
     "morgan": "^1.10.0",
