@@ -8,8 +8,7 @@
     "start": "node start",
     "start-dev": "webpack -w",
     "start-both": "npm start & npm run start-dev",
-    "seed": "node seed.js",
-    "deploy": "public/deploy"
+    "seed": "node seed.js"
   },
   "author": "",
   "license": "ISC",
