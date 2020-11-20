@@ -50,8 +50,8 @@ export default class ExampleScene extends Phaser.Scene {
     });
   }
   create() {
-    this.cameras.main.setBounds(0, 0, 9000, 1200);
-    this.physics.world.setBounds(0, 0, 9000, 1200);
+    this.cameras.main.setBounds(0, 0, 4330, 600);
+    this.physics.world.setBounds(0, 0, 4330, 600);
 
     // Create Sprites
     this.add.image(-160, 0, 'woods').setOrigin(0).setScale(0.5);
@@ -60,6 +60,7 @@ export default class ExampleScene extends Phaser.Scene {
 
     this.player.setBounce(0.2);
     this.player.body.setGravityY(350);
+    this.player.setCollideWorldBounds(true);
 
     this.createAnimations();
 
@@ -74,6 +75,8 @@ export default class ExampleScene extends Phaser.Scene {
     this.groundGroup.create(160, 620, 'mainGround');
 
     this.physics.add.collider(this.player, this.groundGroup);
+
+    this.cameras.main.startFollow(this.player, true, 0.05, 0.05);
   }
 
   update(time, delta) {
