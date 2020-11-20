@@ -3,11 +3,14 @@ import Player from '../entity/Player';
 import Ground from '../entity/Ground';
 import Enemy from '../entity/Enemy';
 import Wand from '../entity/Wand';
+import Laser from '../entity/Laser';
 
 export default class MainScene extends Phaser.Scene {
   constructor() {
     super('FgScene');
     this.collectWand = this.collectWand.bind(this);
+    this.fireLaser = this.fireLaser.bind(this);
+    this.hit = this.hit.bind(this);
   }
   preload() {
     // Preload Sprites
@@ -20,6 +23,7 @@ export default class MainScene extends Phaser.Scene {
     this.load.image('ground', 'assets/sprites/ground.png');
     this.load.image('mainGround', 'assets/sprites/mainGround.png');
     this.load.image('wand', 'assets/sprites/wand.png');
+    this.load.image('laserBolt', 'assets/sprites/laserBolt.png');
   }
 
   //CREATE GROUND HELPER FUNC
@@ -58,8 +62,8 @@ export default class MainScene extends Phaser.Scene {
     });
     this.anims.create({
       key: 'wandHand',
-      frames: [{ key: 'newt', frame: 10 }],
-      frameRate: 10,
+      frames: [{ key: 'newt', frame: 9 }],
+      frameRate: 20,
     });
   }
 
@@ -87,6 +91,14 @@ export default class MainScene extends Phaser.Scene {
     //wand
     this.wand = new Wand(this, 300, 400, 'wand').setScale(0.5);
 
+    //lasers
+    this.lasers = this.physics.add.group({
+      classType: Laser,
+      runChildUpdate: true,
+      allowGravity: false,
+      maxSize: 40,
+    });
+
     //cursors
     this.cursors = this.input.keyboard.createCursorKeys();
 
@@ -113,6 +125,9 @@ export default class MainScene extends Phaser.Scene {
       null,
       this
     );
+
+    this.physics.add.overlap(this.lasers, this.enemy, this.hit, null, this);
+
     //set camera on player
     this.cameras.main.startFollow(this.player, true, 0.05, 0.05);
   }
@@ -121,9 +136,38 @@ export default class MainScene extends Phaser.Scene {
     wand.disableBody(true, true);
     this.player.armed = true;
   }
+  fireLaser(x, y, left) {
+    const offsetX = 56;
+    const offsetY = 14;
+    const laserX =
+      this.player.x + (this.player.facingLeft ? -offsetX : offsetX);
+    const laserY = this.player.y + offsetY;
+    let laser = this.lasers.getFirstDead();
+    if (!laser) {
+      laser = new Laser(
+        this,
+        laserX,
+        laserY,
+        'laserBolt',
+        this.player.facingLeft
+      );
+      this.lasers.add(laser);
+    }
+    laser.reset(laserX, laserY, this.player.facingLeft);
+  }
+  hit(enemy, laser) {
+    laser.setActive(false);
+    laser.setVisible(false);
+  }
 
   update(time, delta) {
     //call player update
     this.player.update(this.cursors);
+    this.wand.update(
+      time,
+      this.player,
+      this.cursors,
+      this.fireLaser // Callback fn for creating lasers
+    );
   }
 }

@@ -8,10 +8,20 @@ export default class Wand extends Phaser.Physics.Arcade.Sprite {
     this.scene.add.existing(this);
 
     //this.flipX = !this.flipX;
+
+    // Set the firing delay (ms)
+    this.fireDelay = 100;
+    // Keep track of when the gun was last fired
+    this.lastFired = 0;
   }
 
-  // Check which controller button is being pushed and execute movement & animation
-  update() {
-    // << INSERT CODE HERE >>
+  // Check if the shoot button is pressed and how long its been since we last fired
+  update(time, player, cursors, fireLaserFn) {
+    if (cursors.space.isDown && time > this.lastFired) {
+      if (player.armed) {
+        fireLaserFn(); // We'll implement this function in FgScene
+        this.lastFired = time + this.fireDelay;
+      }
+    }
   }
 }
