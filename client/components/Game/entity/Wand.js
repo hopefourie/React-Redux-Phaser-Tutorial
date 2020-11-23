@@ -14,13 +14,9 @@ export default class Wand extends Phaser.Physics.Arcade.Sprite {
     // Keep track of when the gun was last fired
     this.lastFired = 0;
   }
-  updateMovement() {
-    this.play('shine', true);
-  }
 
   // Check if the shoot button is pressed and how long its been since we last fired
   update(time, player, cursors, fireLaserFn, laserSound) {
-    this.updateMovement();
     if (cursors.space.isDown && time > this.lastFired) {
       if (player.armed) {
         laserSound.play();
