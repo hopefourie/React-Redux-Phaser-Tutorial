@@ -5,6 +5,7 @@ import Enemy from '../entity/Enemy';
 import Wand from '../entity/Wand';
 import Laser from '../entity/Laser';
 import store, { UPDATE_SCORE } from '../../../store';
+import Firefly from '../entity/Firefly';
 export default class MainScene extends Phaser.Scene {
   constructor() {
     super('MainScene');
@@ -12,6 +13,7 @@ export default class MainScene extends Phaser.Scene {
     this.fireLaser = this.fireLaser.bind(this);
     this.hit = this.hit.bind(this);
     this.score = 0;
+    this.createGround = this.createGround.bind(this);
   }
   preload() {
     // Preload Sprites
@@ -31,11 +33,23 @@ export default class MainScene extends Phaser.Scene {
     this.load.audio('jump', 'assets/audio/jump.wav');
     this.load.audio('laser', 'assets/audio/laser.wav');
     this.load.audio('goblinBurp', 'assets/audio/goblinBurp.mp3');
+    this.load.image('firefly', 'assets/sprites/firefly.png');
   }
 
   //CREATE GROUND HELPER FUNC
   createGround(x, y) {
-    this.groundGroup.create(x, y, 'ground');
+    for (let i = 0; i < 6; i++) {
+      this.groundGroup.create(x, y, 'ground');
+      x += 700;
+    }
+  }
+
+  //CREATE FIREFLIES HELPER FUNC
+  createFireflies(x, y) {
+    for (let i = 0; i < 6; i++) {
+      this.fireflies.create(x, y, 'firefly');
+      x += 700;
+    }
   }
 
   //ANIMATIONS
@@ -118,10 +132,30 @@ export default class MainScene extends Phaser.Scene {
     this.groundGroup = this.physics.add.staticGroup({ classType: Ground });
 
     this.createGround(160, 100);
+    this.createGround(250, 350);
+    this.createGround(530, 200);
     this.createGround(600, 510);
-    this.groundGroup.create(250, 350, 'ground');
-    this.groundGroup.create(530, 200, 'ground');
+
+    //hat platform
+    this.groundGroup.create(4100, 100, 'ground');
+
+    //floor
     this.groundGroup.create(160, 620, 'mainGround');
+
+    //fireflies
+    this.fireflies = this.physics.add.group({ classType: Firefly });
+
+    for (var i = 0; i < 80; i++) {
+      let x = Phaser.Math.RND.between(0, 4500);
+      let y = Phaser.Math.RND.between(0, 600);
+
+      this.fireflies.create(x, y, 'firefly');
+    }
+
+    this.fireflies.children.iterate((child) => {
+      child.body.setAllowGravity(false);
+      child.setScale(0.1, 0.1);
+    });
 
     //sounds
     this.jumpSound = this.sound.add('jump');
@@ -131,6 +165,7 @@ export default class MainScene extends Phaser.Scene {
     this.goblinBurp.volume = 0.5;
 
     //colliders
+    this.physics.add.collider(this.fireflies, this.groundGroup);
     this.physics.add.collider(this.wand, this.groundGroup);
     this.physics.add.collider(this.player, this.groundGroup);
     this.physics.add.collider(this.enemy, this.groundGroup);
@@ -194,5 +229,6 @@ export default class MainScene extends Phaser.Scene {
       this.fireLaser,
       this.laserSound
     );
+    //this.fireflies.getChildren().update();
   }
 }
