@@ -109,3 +109,8 @@ h2 {
 p {
   font-size: 20px;
 }
+
+.score-form {
+  display: flex;
+  flex-direction: column;
+}

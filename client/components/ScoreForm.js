@@ -15,13 +15,14 @@ class ScoreForm extends Component {
     this.setState({
       [e.target.name]: e.target.value,
     });
+    console.log(this.state.name);
   }
   handleSubmit(e) {
     e.preventDefault();
     try {
       this.props.addPlayer({
         name: this.state.name,
-        score: this.props.score,
+        score: Number(this.props.score),
       });
     } catch (error) {
       console.log('error submiting score form');
@@ -32,8 +33,8 @@ class ScoreForm extends Component {
   }
   render() {
     return (
-      <div className="score-form">
-        <form onSubmit={this.handleSubmit}>
+      <div>
+        <form className="score-form" onSubmit={this.handleSubmit}>
           <label>name:</label>
           <input
             type="text"
