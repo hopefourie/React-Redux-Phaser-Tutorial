@@ -7,6 +7,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     this.scene.add.existing(this);
     this.scene.physics.world.enable(this);
     this.armed = false;
+    this.hat = false;
     // << INITIALIZE PLAYER ATTRIBUTES HERE >>
   }
 
@@ -28,7 +29,10 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     }
     // Neutral (no movement)
     else {
-      if (this.armed) {
+      if (this.hat) {
+        this.setVelocityX(0);
+        this.play('wearingHat', true);
+      } else if (this.armed) {
         this.setVelocityX(0);
         this.play('wandHand', true);
       } else {

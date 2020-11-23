@@ -4,6 +4,8 @@ export default class Firefly extends Phaser.Physics.Arcade.Sprite {
   constructor(scene, x, y, spriteKey) {
     super(scene, x, y, spriteKey);
     this.scene = scene;
+    this.x = x;
+    this.y = y;
     this.scene.physics.world.enable(this);
     this.scene.add.existing(this);
     this.playedSound = false;
@@ -11,15 +13,15 @@ export default class Firefly extends Phaser.Physics.Arcade.Sprite {
   }
 
   update(twinkle) {
-    Phaser.Actions.RotateAroundDistance(
-      group.getChildren(),
-      { x: x, y: y },
-      0.02,
-      10
-    );
-    // if (!this.playedSound) {
-    //   this.playedSound = true;
-    //   twinkle.play();
-    // }
+    // Phaser.Actions.RotateAroundDistance(
+    //   this,
+    //   { x: this.x, y: this.y },
+    //   0.02,
+    //   10
+    // );
+    if (!this.playedSound) {
+      this.playedSound = true;
+      twinkle.play();
+    }
   }
 }

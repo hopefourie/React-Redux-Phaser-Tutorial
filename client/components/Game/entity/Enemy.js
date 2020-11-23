@@ -7,8 +7,6 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite {
     this.scene.physics.world.enable(this);
     this.scene.add.existing(this);
     this.playedSound = false;
-
-    //this.flipX = !this.flipX;
   }
 
   // Check which controller button is being pushed and execute movement & animation

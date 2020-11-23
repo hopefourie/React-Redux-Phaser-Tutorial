@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { fetchPlayers } from '../store';
 import { connect } from 'react-redux';
+import ScoreForm from './ScoreForm';
 
 class Leaderboard extends Component {
   componentDidMount() {
@@ -8,23 +9,20 @@ class Leaderboard extends Component {
   }
   render() {
     const { players } = this.props;
-    console.log('PLAYERS', players);
     const scores = players.map((player) => player.score);
-    console.log('SCORES', scores);
     const topScores = scores.sort().slice(0, 3);
-    console.log('TopSCORES', topScores);
     const topPlayers = players.reduce((accum, el) => {
       if (topScores.includes(el.score)) {
         accum.push(el);
       }
       return accum;
     }, []);
-    console.log('topPlayers', topPlayers);
     return (
       <div className="score-box">
         <div className="your-score">
           <h2>Your Score:</h2>
           <h3>{this.props.score}</h3>
+          <ScoreForm score={this.props.score} />
         </div>
         <div className="leaderboard">
           <h2>Leaderboard</h2>

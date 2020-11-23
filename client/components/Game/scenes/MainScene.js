@@ -6,6 +6,8 @@ import Wand from '../entity/Wand';
 import Laser from '../entity/Laser';
 import store, { UPDATE_SCORE } from '../../../store';
 import Firefly from '../entity/Firefly';
+import Hat from '../entity/Hat';
+
 export default class MainScene extends Phaser.Scene {
   constructor() {
     super('MainScene');
@@ -14,6 +16,8 @@ export default class MainScene extends Phaser.Scene {
     this.hit = this.hit.bind(this);
     this.score = 0;
     this.createGround = this.createGround.bind(this);
+    this.collectFirefly = this.collectFirefly.bind(this);
+    this.collectHat = this.collectHat.bind(this);
   }
   preload() {
     // Preload Sprites
@@ -33,7 +37,10 @@ export default class MainScene extends Phaser.Scene {
     this.load.audio('jump', 'assets/audio/jump.wav');
     this.load.audio('laser', 'assets/audio/laser.wav');
     this.load.audio('goblinBurp', 'assets/audio/goblinBurp.mp3');
+    this.load.audio('twinkle', 'assets/audio/twinkle.wav');
+    this.load.audio('success', 'assets/audio/success.wav');
     this.load.image('firefly', 'assets/sprites/firefly.png');
+    this.load.image('hat', 'assets/sprites/hat.png');
   }
 
   //CREATE GROUND HELPER FUNC
@@ -87,6 +94,11 @@ export default class MainScene extends Phaser.Scene {
       frameRate: 20,
     });
     this.anims.create({
+      key: 'wearingHat',
+      frames: [{ key: 'newt', frame: 10 }],
+      frameRate: 20,
+    });
+    this.anims.create({
       key: 'shine',
       frames: this.anims.generateFrameNumbers('wand', { start: 0, end: 1 }),
       frameRate: 5,
@@ -111,8 +123,26 @@ export default class MainScene extends Phaser.Scene {
 
     this.createAnimations();
 
+    //hat
+    this.hat = new Hat(this, 4250, 0, 'hat').setScale(0.25);
+
     //enemy
     this.enemy = new Enemy(this, 600, 400, 'gremlin').setScale(0.5);
+
+    this.enemies = this.physics.add.group({
+      classType: Enemy,
+    });
+
+    for (var i = 0; i < 10; i++) {
+      let x = Phaser.Math.RND.between(0, 4500);
+      let y = Phaser.Math.RND.between(0, 600);
+
+      this.enemies.create(x, y, 'gremlin');
+    }
+
+    this.enemies.children.iterate((child) => {
+      child.setScale(0.5, 0.5);
+    });
 
     //wand
     this.wand = new Wand(this, 300, 400, 'wand').setScale(0.5);
@@ -137,7 +167,7 @@ export default class MainScene extends Phaser.Scene {
     this.createGround(600, 510);
 
     //hat platform
-    this.groundGroup.create(4100, 100, 'ground');
+    this.groundGroup.create(4350, 100, 'ground');
 
     //floor
     this.groundGroup.create(160, 620, 'mainGround');
@@ -163,13 +193,17 @@ export default class MainScene extends Phaser.Scene {
     this.laserSound = this.sound.add('laser');
     this.goblinBurp = this.sound.add('goblinBurp');
     this.goblinBurp.volume = 0.5;
+    this.twinkle = this.sound.add('twinkle');
+    this.success = this.sound.add('success');
 
     //colliders
     this.physics.add.collider(this.fireflies, this.groundGroup);
+    this.physics.add.collider(this.hat, this.groundGroup);
     this.physics.add.collider(this.wand, this.groundGroup);
     this.physics.add.collider(this.player, this.groundGroup);
     this.physics.add.collider(this.enemy, this.groundGroup);
     this.physics.add.collider(this.player, this.enemy);
+    this.physics.add.collider(this.enemies, this.groundGroup);
 
     //overlap
     this.physics.add.overlap(
@@ -180,7 +214,25 @@ export default class MainScene extends Phaser.Scene {
       this
     );
 
+    this.physics.add.overlap(
+      this.player,
+      this.fireflies,
+      this.collectFirefly,
+      null,
+      this
+    );
+
+    this.physics.add.overlap(
+      this.player,
+      this.hat,
+      this.collectHat,
+      null,
+      this
+    );
+
     this.physics.add.overlap(this.lasers, this.enemy, this.hit, null, this);
+
+    this.physics.add.overlap(this.enemies, this.lasers, this.hit, null, this);
 
     //set camera on player
     this.cameras.main.startFollow(this.player, true, 0.05, 0.05);
@@ -190,6 +242,22 @@ export default class MainScene extends Phaser.Scene {
     wand.disableBody(true, true);
     this.player.armed = true;
   }
+
+  collectHat(player, hat) {
+    this.score += 500;
+    hat.disableBody(true, true);
+    this.player.hat = true;
+    store.dispatch({ type: UPDATE_SCORE, score: this.score });
+    hat.update(this.success);
+  }
+
+  collectFirefly(player, firefly) {
+    firefly.disableBody(true, true);
+    this.score += 10;
+    store.dispatch({ type: UPDATE_SCORE, score: this.score });
+    firefly.update(this.twinkle);
+  }
+
   fireLaser(x, y, left) {
     const offsetX = 56;
     const offsetY = 14;
@@ -209,12 +277,12 @@ export default class MainScene extends Phaser.Scene {
     }
     laser.reset(laserX, laserY, this.player.facingLeft);
   }
+
   hit(enemy, laser) {
     laser.setActive(false);
     laser.setVisible(false);
-    enemy.disableBody(true);
-    enemy.setVisible(false);
-    this.enemy.update(this.goblinBurp);
+    enemy.update(this.goblinBurp);
+    enemy.disableBody(true, true);
     this.score += 100;
     store.dispatch({ type: UPDATE_SCORE, score: this.score });
   }
@@ -229,6 +297,9 @@ export default class MainScene extends Phaser.Scene {
       this.fireLaser,
       this.laserSound
     );
-    //this.fireflies.getChildren().update();
+    // vv this is firing correctly but the update within the class is not
+    // this.fireflies.getChildren().forEach((firefly) => {
+    //   firefly.update();
+    // });
   }
 }
