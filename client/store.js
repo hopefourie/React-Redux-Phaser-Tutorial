@@ -43,7 +43,7 @@ export const addPlayer = () => {
   return async (dispatch) => {
     try {
       const { data: player } = await axios.post('/api/players');
-      dispatch(receivedPlayers(player));
+      dispatch(playerAdded(player));
     } catch (error) {
       console.error('Error fetching players');
     }

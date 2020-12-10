@@ -4,10 +4,33 @@ import { connect } from 'react-redux';
 import ScoreForm from './ScoreForm';
 
 class Leaderboard extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      topPlayers: [],
+    };
+    this.setTopPlayers = this.setTopPlayers.bind(this);
+  }
   componentDidMount() {
     this.props.fetchPlayers();
   }
+  setTopPlayers() {
+    this.props.fetchPlayers();
+    const { players } = this.props;
+    const scores = players.map((player) => player.score);
+    const topScores = scores.sort().slice(0, 3);
+    const topPlayers = players.reduce((accum, el) => {
+      if (topScores.includes(el.score)) {
+        accum.push(el);
+      }
+      return accum;
+    }, []);
+    this.setState({
+      topPlayers: topPlayers,
+    });
+  }
   render() {
+    console.log('props', this.props);
     const { players } = this.props;
     const scores = players.map((player) => player.score);
     const topScores = scores.sort().slice(0, 3);
@@ -43,7 +66,10 @@ class Leaderboard extends Component {
           </div>
         </div>
         <div className="your-score">
-          <ScoreForm score={this.props.score} />
+          <ScoreForm
+            score={this.props.score}
+            setTopPlayers={this.setTopPlayers}
+          />
           <h2>Your Score: {this.props.score}</h2>
         </div>
       </div>

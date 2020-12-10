@@ -6,7 +6,7 @@ body {
     rgba(42, 40, 92, 1) 35%,
     rgba(80, 107, 137, 1) 100%
   );
-  font-family: 'Overpass', Sans-Serif;
+  font-family: 'Source Code Pro', monospace;
   color: #ced4d6;
 }
 p {
@@ -25,19 +25,19 @@ h2 {
   margin: 5px;
   font-size: 20px;
   color: #f6d304;
-  font-family: 'Permanent Marker', Cursive;
+  font-family: 'Merriweather', serif;
 }
 
 button {
   border: none;
   background-color: #557441;
-  font-family: 'Overpass', Sans-Serif;
+  font-family: 'Source Code Pro', monospace;
   margin: 10px 0px 10px 0px;
 }
 
 input {
   background-color: #ced4d6;
-  font-family: 'Overpass', Sans-Serif;
+  font-family: 'Source Code Pro', monospace;
 }
 .top-players {
   display: flex;

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import addPlayer from '../store';
+import { addPlayer } from '../store';
 import { connect } from 'react-redux';
 
 class ScoreForm extends Component {
@@ -24,6 +24,7 @@ class ScoreForm extends Component {
         name: this.state.name,
         score: Number(this.props.score),
       });
+      this.props.setTopPlayers();
     } catch (error) {
       console.log('error submiting score form');
     }

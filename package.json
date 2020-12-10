@@ -6,8 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node start",
-    "start-dev": "webpack -w",
-    "start-both": "npm start & npm run start-dev",
+    "build-watch": "webpack -w",
+    "start-dev": "npm start & npm run build-watch",
     "seed": "node seed.js"
   },
   "author": "",
