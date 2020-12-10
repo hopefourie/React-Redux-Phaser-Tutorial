@@ -10,6 +10,14 @@ body {
   color: #ced4d6;
 }
 
+.canvas {
+  margin: 0px;
+}
+
+canvas {
+  margin: 0px;
+}
+
 .title {
   background-image: linear-gradient(
     to top,
@@ -35,12 +43,6 @@ h1 {
 
 h2 {
   margin: 5px;
-}
-
-.game-container {
-  margin: auto;
-  width: 50%;
-  padding: 10px;
 }
 
 .top-players {

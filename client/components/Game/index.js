@@ -14,6 +14,8 @@ But this hasn't happened yet!
 
 // Bring in all the scenes
 import MainScene from './scenes/MainScene';
+import OpeningScene from './scenes/OpeningScene';
+import WinScene from './scenes/WinScene';
 import 'phaser';
 import React from 'react';
 
@@ -40,7 +42,11 @@ export default class Game extends React.Component {
           debug: false,
         },
       },
-      scene: [MainScene],
+      scale: {
+        parent: 'game-container',
+        autoCenter: Phaser.Scale.CENTER_HORIZONTALLY,
+      },
+      scene: [MainScene, OpeningScene, WinScene],
     };
     new Phaser.Game(config);
   }

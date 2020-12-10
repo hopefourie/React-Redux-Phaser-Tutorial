@@ -99,6 +99,7 @@ export default class MainScene extends Phaser.Scene {
 
   //CREATE
   create() {
+    console.log('inside create mainscene');
     //set up camera and world bounds
     this.cameras.main.setBounds(0, 0, 4330, 600);
     this.physics.world.setBounds(0, 0, 4330, 600);
@@ -228,6 +229,9 @@ export default class MainScene extends Phaser.Scene {
 
     //set camera on player
     this.cameras.main.startFollow(this.player, true, 0.05, 0.05);
+
+    this.scene.launch('OpeningScene');
+    this.scene.pause('MainScene');
   }
 
   collectWand(player, wand) {
@@ -241,6 +245,8 @@ export default class MainScene extends Phaser.Scene {
     this.player.hat = true;
     store.dispatch({ type: UPDATE_SCORE, score: this.score });
     hat.update(this.success);
+    this.scene.launch('WinScene');
+    this.scene.pause('MainScene');
   }
 
   collectFirefly(player, firefly) {

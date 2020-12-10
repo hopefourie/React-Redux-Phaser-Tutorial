@@ -9,7 +9,7 @@ class ScoreForm extends Component {
       name: '',
     };
     this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
   handleChange(e) {
     this.setState({
@@ -35,13 +35,13 @@ class ScoreForm extends Component {
     return (
       <div>
         <form className="score-form" onSubmit={this.handleSubmit}>
-          <label>name:</label>
           <input
             type="text"
             className="input-box"
             name="name"
             value={this.state.name}
             onChange={this.handleChange}
+            placeholder="enter name"
           />
           <button type="submit">submit</button>
         </form>
