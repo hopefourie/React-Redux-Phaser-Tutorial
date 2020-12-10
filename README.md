@@ -1,6 +1,6 @@
-# Regex Spaceship
+# Newt's Quest
 
-Regex Spaceship is a web-based multiplayer game that helps players fine tune their RegEx syntax. As an astronaut, players must run around their ship, fixing broken control panels by writing Regular Expressions. You must fix all the control panels before time runs out, or you'll be lost in space forever!
+Newt's Quest is a web-based platform game in which you venture through a magical forrest as Newt the gnome. The goblins of the dark wood have stolen your trusty wand and beloved gnome hat. You must get them back! First, find your wand, then cast a spell on any goblin that tries to get between you and your hat.
 
 ## Play the deployed version here
 
