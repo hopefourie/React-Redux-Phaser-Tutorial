@@ -19,24 +19,32 @@ class Leaderboard extends Component {
     }, []);
     return (
       <div className="score-box">
-        <div className="your-score">
-          <h2>Your Score:</h2>
-          <h3>{this.props.score}</h3>
-          <ScoreForm score={this.props.score} />
-        </div>
         <div className="leaderboard">
           <h2>Leaderboard</h2>
-          <div className="top-players">
-            {topPlayers.map((player) => {
-              return (
-                <div key={player.id} className="top-player">
-                  <p>
-                    {player.name}: {player.score} pnts
-                  </p>
-                </div>
-              );
-            })}
+          <div className="players-and-scores">
+            <div className="top-players">
+              {topPlayers.map((player) => {
+                return (
+                  <div key={player.id} className="top-player">
+                    <p>{player.name}</p>
+                  </div>
+                );
+              })}
+            </div>
+            <div className="top-scores">
+              {topPlayers.map((player) => {
+                return (
+                  <div key={player.id} className="top-score">
+                    <p>{player.score}</p>
+                  </div>
+                );
+              })}
+            </div>
           </div>
+        </div>
+        <div className="your-score">
+          <ScoreForm score={this.props.score} />
+          <h2>Your Score: {this.props.score}</h2>
         </div>
       </div>
     );
