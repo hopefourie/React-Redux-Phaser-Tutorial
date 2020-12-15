@@ -6,40 +6,29 @@ import ScoreForm from './ScoreForm';
 class Leaderboard extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      topPlayers: [],
-    };
-    this.setTopPlayers = this.setTopPlayers.bind(this);
+    this.findTopPlayers = this.findTopPlayers.bind(this);
   }
   componentDidMount() {
     this.props.fetchPlayers();
   }
-  setTopPlayers() {
-    this.props.fetchPlayers();
-    const { players } = this.props;
-    const scores = players.map((player) => player.score);
-    const topScores = scores.sort().slice(0, 3);
-    const topPlayers = players.reduce((accum, el) => {
-      if (topScores.includes(el.score)) {
-        accum.push(el);
+  findTopPlayers(players) {
+    for (let j = 0; j < players.length; j++) {
+      for (let i = 0; i < players.length; i++) {
+        let curr = players[i];
+        let next = players[i + 1];
+        if (next && curr.score < next.score) {
+          let temp = players[i];
+          players[i] = players[i + 1];
+          players[i + 1] = temp;
+        }
       }
-      return accum;
-    }, []);
-    this.setState({
-      topPlayers: topPlayers,
-    });
+    }
+    return players.slice(0, 3);
   }
   render() {
     console.log('props', this.props);
     const { players } = this.props;
-    const scores = players.map((player) => player.score);
-    const topScores = scores.sort().slice(0, 3);
-    const topPlayers = players.reduce((accum, el) => {
-      if (topScores.includes(el.score)) {
-        accum.push(el);
-      }
-      return accum;
-    }, []);
+    const topPlayers = this.findTopPlayers(players);
     return (
       <div className="score-box">
         <div className="leaderboard">
@@ -66,10 +55,7 @@ class Leaderboard extends Component {
           </div>
         </div>
         <div className="your-score">
-          <ScoreForm
-            score={this.props.score}
-            setTopPlayers={this.setTopPlayers}
-          />
+          <ScoreForm setTopPlayers={this.setTopPlayers} />
           <h2>Your Score: {this.props.score}</h2>
         </div>
       </div>

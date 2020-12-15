@@ -2,7 +2,7 @@ import '../public/style.css';
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import store from './store';
-import { Provider, connect } from 'react-redux';
+import { Provider } from 'react-redux';
 import Game from './components/Game';
 import Leaderboard from './components/Leaderboard';
 

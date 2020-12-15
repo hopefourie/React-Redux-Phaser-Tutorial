@@ -17,14 +17,14 @@ class ScoreForm extends Component {
     });
     console.log(this.state.name);
   }
-  handleSubmit(e) {
+  async handleSubmit(e) {
     e.preventDefault();
     try {
-      this.props.addPlayer({
+      await this.props.addPlayer({
         name: this.state.name,
-        score: Number(this.props.score),
+        score: this.props.score,
       });
-      this.props.setTopPlayers();
+      // this.props.setTopPlayers();
     } catch (error) {
       console.log('error submiting score form');
     }

@@ -39,13 +39,13 @@ export const fetchPlayers = () => {
   };
 };
 
-export const addPlayer = () => {
+export const addPlayer = (playerInfo) => {
   return async (dispatch) => {
     try {
-      const { data: player } = await axios.post('/api/players');
+      const { data: player } = await axios.post('/api/players', playerInfo);
       dispatch(playerAdded(player));
     } catch (error) {
-      console.error('Error fetching players');
+      console.error('Error adding player');
     }
   };
 };
@@ -56,8 +56,7 @@ const reducer = (state = initState, action) => {
     case GET_PLAYERS:
       return { ...state, players: action.players };
     case ADD_PLAYER:
-      state.players.push(action.player);
-      return state;
+      return { ...state, players: [...state.players, action.player] };
     case UPDATE_SCORE:
       return { ...state, score: action.score };
     default:

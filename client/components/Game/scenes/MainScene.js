@@ -99,7 +99,6 @@ export default class MainScene extends Phaser.Scene {
 
   //CREATE
   create() {
-    console.log('inside create mainscene');
     //set up camera and world bounds
     this.cameras.main.setBounds(0, 0, 4330, 600);
     this.physics.world.setBounds(0, 0, 4330, 600);

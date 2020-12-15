@@ -18,11 +18,11 @@ export default class WinScene extends Phaser.Scene {
     this.popup.fillRect(25, 25, 750, 550);
 
     //start button square
-    this.button = this.add.graphics();
-    this.button.lineStyle(1, 0x2a275c);
-    this.button.fillStyle(0xf6d304, 0.5);
-    this.button.strokeRect(300, 465, 200, 50);
-    this.button.fillRect(300, 465, 200, 50);
+    // this.button = this.add.graphics();
+    // this.button.lineStyle(1, 0x2a275c);
+    // this.button.fillStyle(0xf6d304, 0.5);
+    // this.button.strokeRect(300, 465, 200, 50);
+    // this.button.fillRect(300, 465, 200, 50);
 
     this.add.image(212.5, 220, 'newtHat').setOrigin(0.5);
     this.add
@@ -53,20 +53,18 @@ export default class WinScene extends Phaser.Scene {
       })
       .setOrigin(0.5);
 
-    this.playAgain = this.add
-      .text(400, 490, 'Play Again', {
-        fill: '#2A275C',
-        fontSize: '30px',
-        fontStyle: 'bold',
-      })
-      .setOrigin(0.5);
-    this.playAgain.setInteractive();
-    this.playAgain.on(
-      'pointerdown',
-      () => {
-        this.scene.stop('OpeningScene');
-      },
-      this
-    );
+    // this.playAgain = this.add
+    //   .text(400, 490, 'Play Again', {
+    //     fill: '#2A275C',
+    //     fontSize: '30px',
+    //     fontStyle: 'bold',
+    //   })
+    //   .setOrigin(0.5);
+    // this.playAgain.setInteractive();
+    // this.playAgain.on(
+    //   'pointerdown',
+    //   () => {},
+    //   this
+    // );
   }
 }
