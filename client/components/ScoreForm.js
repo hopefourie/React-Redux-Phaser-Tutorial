@@ -44,10 +44,7 @@ class ScoreForm extends Component {
             onChange={this.handleChange}
             placeholder="enter name"
           />
-          <button
-            type="submit"
-            disabled={this.props.gameOver ? this.state.buttonDisabled : true}
-          >
+          <button type="submit" disabled={this.state.buttonDisabled}>
             submit
           </button>
         </form>

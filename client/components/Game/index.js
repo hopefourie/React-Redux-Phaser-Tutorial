@@ -1,11 +1,10 @@
 /** @type {import("../typings/phaser")} */
-
-// Bring in all the scenes
-import MainScene from './scenes/MainScene';
-import OpeningScene from './scenes/OpeningScene';
-import WinScene from './scenes/WinScene';
 import 'phaser';
 import React from 'react';
+
+// Import your Scenes
+import MainScene from './scenes/MainScene';
+import OpeningScene from './scenes/OpeningScene';
 
 export default class Game extends React.Component {
   componentDidMount() {
@@ -24,7 +23,7 @@ export default class Game extends React.Component {
         parent: 'game-container',
         autoCenter: Phaser.Scale.CENTER_HORIZONTALLY,
       },
-      scene: [MainScene, OpeningScene, WinScene],
+      scene: [MainScene, OpeningScene],
     };
     new Phaser.Game(config);
   }
