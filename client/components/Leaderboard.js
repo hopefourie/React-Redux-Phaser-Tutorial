@@ -26,7 +26,6 @@ class Leaderboard extends Component {
     return players.slice(0, 3);
   }
   render() {
-    console.log('props', this.props);
     const { players } = this.props;
     const topPlayers = this.findTopPlayers(players);
     return (

@@ -16,7 +16,6 @@ class ScoreForm extends Component {
     this.setState({
       [e.target.name]: e.target.value,
     });
-    console.log(this.state.name);
   }
   async handleSubmit(e) {
     e.preventDefault();
@@ -34,11 +33,6 @@ class ScoreForm extends Component {
     }
   }
   render() {
-    console.log(
-      'buttonDisabled && gameOver',
-      this.state.buttonDisabled,
-      this.props.gameOver
-    );
     return (
       <div>
         <form className="score-form" onSubmit={this.handleSubmit}>
