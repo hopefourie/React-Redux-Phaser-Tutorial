@@ -4,7 +4,7 @@ import Ground from '../entity/Ground';
 import Enemy from '../entity/Enemy';
 import Wand from '../entity/Wand';
 import Laser from '../entity/Laser';
-import store, { UPDATE_SCORE } from '../../../store';
+import store, { UPDATE_SCORE, GAME_OVER, gameIsOver } from '../../../store';
 import Firefly from '../entity/Firefly';
 import Hat from '../entity/Hat';
 
@@ -244,6 +244,7 @@ export default class MainScene extends Phaser.Scene {
     this.player.hat = true;
     store.dispatch({ type: UPDATE_SCORE, score: this.score });
     hat.update(this.success);
+    store.dispatch(gameIsOver());
     this.scene.launch('WinScene');
     this.scene.pause('MainScene');
   }
@@ -294,9 +295,5 @@ export default class MainScene extends Phaser.Scene {
       this.fireLaser,
       this.laserSound
     );
-    // vv this is firing correctly but the update within the class is not
-    // this.fireflies.getChildren().forEach((firefly) => {
-    //   firefly.update();
-    // });
   }
 }

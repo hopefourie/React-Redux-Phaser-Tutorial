@@ -7,6 +7,7 @@ class ScoreForm extends Component {
     super(props);
     this.state = {
       name: '',
+      buttonDisabled: false,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -24,15 +25,20 @@ class ScoreForm extends Component {
         name: this.state.name,
         score: this.props.score,
       });
-      // this.props.setTopPlayers();
+      this.setState({
+        name: '',
+        buttonDisabled: true,
+      });
     } catch (error) {
       console.log('error submiting score form');
     }
-    this.setState({
-      name: '',
-    });
   }
   render() {
+    console.log(
+      'buttonDisabled && gameOver',
+      this.state.buttonDisabled,
+      this.props.gameOver
+    );
     return (
       <div>
         <form className="score-form" onSubmit={this.handleSubmit}>
@@ -44,7 +50,12 @@ class ScoreForm extends Component {
             onChange={this.handleChange}
             placeholder="enter name"
           />
-          <button type="submit">submit</button>
+          <button
+            type="submit"
+            disabled={this.props.gameOver ? this.state.buttonDisabled : true}
+          >
+            submit
+          </button>
         </form>
       </div>
     );
@@ -52,6 +63,7 @@ class ScoreForm extends Component {
 }
 const mapState = (state) => ({
   score: state.score,
+  gameOver: state.gameOver,
 });
 
 const mapDispatch = (dispatch) => ({

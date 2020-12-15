@@ -4,12 +4,13 @@ import { createLogger } from 'redux-logger';
 import axios from 'axios';
 import regeneratorRuntime from 'regenerator-runtime';
 
-const initState = { players: [], score: 0 };
+const initState = { players: [], score: 0, gameOver: false };
 
 //ACTION TYPES
 const GET_PLAYERS = 'GET_PLAYERS';
 const ADD_PLAYER = 'ADD_PLAYER';
 export const UPDATE_SCORE = 'UPDATE_SCORE';
+const GAME_OVER = 'GAME_OVER';
 
 //ACTION CREATORS
 const receivedPlayers = (players) => ({
@@ -25,6 +26,10 @@ const playerAdded = (player) => ({
 export const updateScore = (score) => ({
   type: UPDATE_SCORE,
   score,
+});
+
+export const gameIsOver = () => ({
+  type: GAME_OVER,
 });
 
 //THUNKS
@@ -59,6 +64,8 @@ const reducer = (state = initState, action) => {
       return { ...state, players: [...state.players, action.player] };
     case UPDATE_SCORE:
       return { ...state, score: action.score };
+    case GAME_OVER:
+      return { ...state, gameOver: true };
     default:
       return state;
   }
