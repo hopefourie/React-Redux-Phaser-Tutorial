@@ -6,12 +6,8 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     this.scene = scene;
     this.scene.add.existing(this);
     this.scene.physics.world.enable(this);
-    this.armed = false;
-    this.hat = false;
-    // << INITIALIZE PLAYER ATTRIBUTES HERE >>
   }
 
-  // Check which controller button is being pushed and execute movement & animation
   updateMovement(cursors) {
     // Move left
     if (cursors.left.isDown) {
@@ -29,16 +25,8 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     }
     // Neutral (no movement)
     else {
-      if (this.hat) {
-        this.setVelocityX(0);
-        this.play('wearingHat', true);
-      } else if (this.armed) {
-        this.setVelocityX(0);
-        this.play('wandHand', true);
-      } else {
-        this.setVelocityX(0);
-        this.play('turn', true);
-      }
+      this.setVelocityX(0);
+      this.play('turn', true);
     }
   }
 
