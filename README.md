@@ -1,10 +1,14 @@
 # Newt's Quest
 
-Newt's Quest is a web-based platform game in which you venture through a magical forrest as Newt the gnome. The goblins of the dark wood have stolen your trusty wand and beloved gnome hat. You must get them back! First, find your wand, then cast a spell on any goblin that tries to get between you and your hat.
+This repo accompanies a three part tutorial on how to integrate a Phaser 3 game into a React/Redux app. Check out the link below to build a simple phaser platform game in which a gnome named Newt runs around a magical forrest collecting fireflies. Using React/Redux we will make a submit score form and a leaderboard component that updates in real time.
+
+## Complete the tutorial
+
+https://hopefourie.medium.com/successfully-integrating-phaser-3-into-your-react-redux-app-part-1-bade7feb460
 
 ## Play the deployed version here
 
-https://newts-quest.herokuapp.com/
+https://reactreduxphasertutorial.herokuapp.com/
 
 ## Getting Started
 

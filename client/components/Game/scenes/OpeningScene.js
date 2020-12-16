@@ -34,7 +34,7 @@ export default class OpeningScene extends Phaser.Scene {
       .text(
         400,
         200,
-        'The goblins of the dark wood have stolen your trusty wand and beloved gnome hat. You must get them back! First, find your wand, then cast a spell on any goblin that tries to get between you and your hat.',
+        'Run around the enchanted woods as Newt the gnome. Collect fireflies to earn points. Submit your score above at any time.',
         {
           fill: '#CED4D6',
           fontSize: '20px',
@@ -46,12 +46,11 @@ export default class OpeningScene extends Phaser.Scene {
       .setOrigin(0.5);
 
     this.add
-      .text(400, 340, '⬅ ➡ to move | ⬆ to jump | space to fire a spell', {
+      .text(400, 340, '⬅ ➡ to move | ⬆ to jump', {
         fill: '#CED4D6',
         fontSize: '20px',
         fontStyle: 'bold',
         align: 'center',
-        // wordWrap: { width: 480, height: 445, useAdvancedWrap: true },
       })
       .setOrigin(0.5);
 
