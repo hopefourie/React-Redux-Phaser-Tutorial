@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { addPlayer } from '../store';
 import { connect } from 'react-redux';
 
